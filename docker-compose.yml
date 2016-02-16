@@ -1,0 +1,43 @@
+data:  
+  build: laravel-data
+  volumes:
+    - /home/a/subway-crm:/data
+  privileged: true
+
+db:  
+  build: laravel-database
+  volumes_from:
+    - data
+  ports:
+    - "3306:3306"
+  privileged: true
+
+phpfpm:  
+  build: laravel-phpfpm
+  volumes_from:
+    - data
+  links:
+    - db:db
+  privileged: true
+
+web:  
+  build: laravel-nginx
+  volumes_from:
+    - data
+  links:
+    - phpfpm:phpfpm
+  ports:
+    - "80:80"
+  privileged: true
+
+artisan:  
+  build: laravel-artisan
+  volumes_from:
+    - data
+  links:
+    - db:db
+
+composer:  
+  build: laravel-composer
+  volumes_from:
+    - data    
