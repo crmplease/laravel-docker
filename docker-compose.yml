@@ -1,13 +1,13 @@
-data:  
-  build: laravel-data
+storage:  
+  build: laravel-storage
   volumes:
     - /home/a/subway-crm:/data
   privileged: true
 
-db:  
+database:  
   build: laravel-database
   volumes_from:
-    - data
+    - storage
   ports:
     - "3306:3306"
   privileged: true
@@ -15,15 +15,15 @@ db:
 phpfpm:  
   build: laravel-phpfpm
   volumes_from:
-    - data
+    - storage
   links:
-    - db:db
+    - database:database
   privileged: true
 
-web:  
+nginx:  
   build: laravel-nginx
   volumes_from:
-    - data
+    - storage
   links:
     - phpfpm:phpfpm
   ports:
@@ -33,11 +33,16 @@ web:
 artisan:  
   build: laravel-artisan
   volumes_from:
-    - data
+    - storage
   links:
-    - db:db
+    - database:database
 
 composer:  
   build: laravel-composer
   volumes_from:
-    - data    
+    - storage
+
+# gulp:  
+#   build: laravel-gulp
+#   volumes_from:
+#     - storage    
