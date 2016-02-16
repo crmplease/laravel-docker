@@ -1,7 +1,17 @@
 DELETE FROM mysql.user WHERE User='';
+
 DELETE FROM mysql.db WHERE Db LIKE 'test%';
-DROP DATABASE test;
+
+DROP DATABASE IF EXISTS test;
+
 UPDATE mysql.user SET password = password('password') WHERE user = 'root';
-CREATE USER docker;
-GRANT ALL PRIVILEGES ON *.* To 'docker' IDENTIFIED BY 'docker';
-flush privileges;
+
+CREATE USER 'docker'@'localhost' IDENTIFIED BY 'docker';
+
+GRANT ALL PRIVILEGES ON *.* TO 'docker'@'localhost' WITH GRANT OPTION;
+
+CREATE USER 'docker'@'%' IDENTIFIED BY 'docker';
+
+GRANT ALL PRIVILEGES ON *.* TO 'docker'@'%' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
