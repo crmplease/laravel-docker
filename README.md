@@ -43,3 +43,7 @@ myapp composer update
 myapp artisan migrate:refresh --seed
 ```
 
+P.S. Default laravel database host is `localhost`. At docker infrastructure host is `database`. So must specify it at `config/database.php` or in `.env` file:
+```bash
+DB_HOST=database
+```
