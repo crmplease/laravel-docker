@@ -1,7 +1,7 @@
 storage:  
   build: laravel-storage
   volumes:
-    - /home/a/subway-crm:/data
+    - ${CURRENT_DIR}:/data
   privileged: true
 
 database:  

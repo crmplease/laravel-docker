@@ -1,7 +1,14 @@
 # Laravel Dockerfiles
 
 ## Requirements
-Install sudo, [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/). Don't forget to add user to `docker` group.
+Install sudo, realpath, [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/). Don't forget to add user to `docker` group.
+
+On Debian Jessie as root:
+```bash
+apt-get install sudo realpath python-pip
+wget -qO- https://get.docker.com/ | sh
+pip install docker-compose
+```
 
 ## First sterps
 1. Create your laravel project

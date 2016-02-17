@@ -1,4 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+if [ ! "$(command -v realpath docker docker-compose | wc -l)" -eq "3" ]; then
+
+	# intentionally mixed spaces and tabs here -- tabs are stripped by "<<-EOF", spaces are kept in the output
+	cat <<-EOF
+
+	Please install realpath, docker and docker-compose.
+
+	Run it as root:
+
+		apt-get install sudo realpath python-pip
+		wget -qO- https://get.docker.com/ | sh
+		pip install docker-compose
+
+	EOF
+
+	exit 1;
+fi
+
+CURRENT_DIR="$(realpath .)"
+
+if [[ ! -f docker/docker-compose.yml ]]; then
+
+	cat docker/docker-compose.dist.yml | sed -e "s#\${CURRENT_DIR}#${CURRENT_DIR}#" > docker/docker-compose.yml
+
+fi
 
 if [[ ! -f build.lock ]]; then
 
