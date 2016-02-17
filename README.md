@@ -1,12 +1,7 @@
 # Laravel Dockerfiles
 
 ## Requirements
-Install sudo, [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/).
-
-Don't forget to add user to `docker` group:
-```bash
-sudo adduser <user> docker
-```
+Install sudo, [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/). Don't forget to add user to `docker` group.
 
 ## First sterps
 1. Create your laravel project
