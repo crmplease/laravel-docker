@@ -5,10 +5,8 @@ Install sudo, [docker](https://docs.docker.com/engine/installation/) and [docker
 
 ## First sterps
 1. Create your laravel project
-2. Creare `docker` directory
-3. Pull this repository into `docker` directory
-4. Make `storage` directory writeable for everyone
-5. Run `docker-compose`
+2. Clone this repository into `docker` directory
+3. Make `storage` directory writeable for everyone
 
 ## Usage
 ### Command-line usage
