@@ -1,56 +1,58 @@
-storage:  
-  build: laravel-storage
-  volumes:
-    - ${CURRENT_DIR}:/data
-  privileged: true
+version: '2' 
+services: 
+  storage:  
+    build: laravel-storage
+    volumes:
+      - ${CURRENT_DIR}:/data
+    privileged: true
 
-database:  
-  build: laravel-database
-  volumes_from:
-    - storage
-  ports:
-    - "3306:3306"
-  privileged: true
+  database:  
+    build: laravel-database
+    volumes_from:
+      - storage
+    ports:
+      - "3306:3306"
+    privileged: true
 
-phpfpm:  
-  build: laravel-phpfpm
-  volumes_from:
-    - storage
-  links:
-    - database:database
-  privileged: true
+  phpfpm:  
+    build: laravel-phpfpm
+    volumes_from:
+      - storage
+    links:
+      - database:database
+    privileged: true
 
-nginx:  
-  build: laravel-nginx
-  volumes_from:
-    - storage
-  links:
-    - phpfpm:phpfpm
-  ports:
-    - "80:80"
-  privileged: true
+  nginx:  
+    build: laravel-nginx
+    volumes_from:
+      - storage
+    links:
+      - phpfpm:phpfpm
+    ports:
+      - "80:80"
+    privileged: true
 
-artisan:  
-  build: laravel-artisan
-  volumes_from:
-    - storage
-  depends_on:
-    - database
-    - phpfpm
-    - nginx    
-  links:
-    - database:database
+  artisan:  
+    build: laravel-artisan
+    volumes_from:
+      - storage
+    depends_on:
+      - database
+      - phpfpm
+      - nginx    
+    links:
+      - database:database
 
-composer:  
-  build: laravel-composer
-  volumes_from:
-    - storage
-  depends_on:
-    - database
-    - phpfpm
-    - nginx
+  composer:  
+    build: laravel-composer
+    volumes_from:
+      - storage
+    depends_on:
+      - database
+      - phpfpm
+      - nginx
 
-# gulp:  
-#   build: laravel-gulp
-#   volumes_from:
-#     - storage    
+  # gulp:  
+  #   build: laravel-gulp
+  #   volumes_from:
+  #     - storage    
