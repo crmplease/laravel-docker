@@ -47,3 +47,26 @@ P.S. Default laravel database host is `localhost`. At docker infrastructure host
 ```bash
 DB_HOST=database
 ```
+
+## Requirements
+```bash
+# root
+apt-get update
+apt-get install sudo
+adduser <user> sudo
+```
+
+Edit `/etc/sudoers` file:
+```
+%sudo     ALL=(ALL:ALL)   NOPASSWD:ALL
+```
+
+Install docker and docker-compose:
+```bash
+# https://docs.docker.com/engine/installation/linux/debian/
+sudo apt-get install docker-engine
+sudo adduser <user> docker
+# https://docs.docker.com/compose/install/
+sudo apt-get install python-pip
+sudo pip install docker-compose
+```
