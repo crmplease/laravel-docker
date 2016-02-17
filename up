@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ ! -f build.lock ]]; then
+
+    docker-compose up -d
+
+    touch build.lock
+
+fi
+
+docker-compose run $@
