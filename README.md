@@ -1,12 +1,17 @@
 # Laravel Dockerfiles
 
 ## Requirements
-Install sudo, realpath, [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/). Don't forget to add user to `docker` group.
+Install sudo, [docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/). Don't forget to add user to `docker` group.
 
 On Debian Jessie as root:
 ```bash
-apt-get install sudo realpath python-pip
+apt-get install -y sudo 
+usermod -aG sudo <user>
+
 wget -qO- https://get.docker.com/ | sh
+usermod -aG docker <user>
+
+apt-get install -y python-pip
 pip install docker-compose
 ```
 
@@ -41,12 +46,13 @@ ln -s docker/up laravel
 
 Run:
 ```bash
-laravel composer update
-laravel artisan migrate:refresh --seed
+./laravel up -d
+./laravel composer update
+./laravel artisan migrate:refresh --seed
 ```
 
 P.S. Default laravel database host is `localhost`. At docker infrastructure host is `database`. 
-So you must specify it at `config/database.php` or in `.env` file:
+So you must specify it at `config/database.php` or `.env` file:
 ```bash
 DB_HOST=database
 ```
