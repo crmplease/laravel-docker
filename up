@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
 
-if [ ! "$(command -v realpath docker docker-compose | wc -l)" -eq "3" ]; then
+if [ ! "$(command -v sudo docker docker-compose | wc -l)" -eq "3" ]; then
 
-	# intentionally mixed spaces and tabs here -- tabs are stripped by "<<-EOF", spaces are kept in the output
 	cat <<-EOF
 
-	Please install realpath, docker and docker-compose.
+	Please install sudo, docker and docker-compose.
 
 	Run it as root:
 
+		apt-get install -y sudo 
+		usermod -aG sudo <user>
+
 		wget -qO- https://get.docker.com/ | sh
 		usermod -aG docker <user>
-
-		apt-get install -y sudo realpath 
-		usermod -aG sudo <user>
 
 		apt-get install -y python-pip
 		pip install docker-compose
@@ -23,21 +22,14 @@ if [ ! "$(command -v realpath docker docker-compose | wc -l)" -eq "3" ]; then
 	exit 1;
 fi
 
-CURRENT_DIR="$(realpath .)"
+DIR="$(dirname ${0})"
 
-if [[ ! -f docker/docker-compose.yml ]]; then
-
-	cat docker/docker-compose.dist.yml | sed -e "s#\${CURRENT_DIR}#${CURRENT_DIR}#" > docker/docker-compose.yml
-
-fi
-
-if [[ ! -f build.lock ]]; then
-
-    docker-compose -f docker/docker-compose.yml up -d
-
-    touch build.lock
-
-fi
-
-docker-compose -f docker/docker-compose.yml run $@
+case "${1}" in
+	artisan|composer)
+		docker-compose -f ${DIR}/docker/docker-compose.yml run $@
+		;;
+	*)
+		docker-compose -f ${DIR}/docker/docker-compose.yml $@
+		;;
+esac
 

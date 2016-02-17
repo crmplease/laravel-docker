@@ -3,8 +3,8 @@ services:
   storage:  
     build: laravel-storage
     volumes:
-      - ${CURRENT_DIR}:/data
-    privileged: true
+      - ../:/data
+    restart: always
 
   database:  
     build: laravel-database
@@ -12,7 +12,7 @@ services:
       - storage
     ports:
       - "3306:3306"
-    privileged: true
+    restart: always
 
   phpfpm:  
     build: laravel-phpfpm
@@ -20,7 +20,7 @@ services:
       - storage
     links:
       - database:database
-    privileged: true
+    restart: always
 
   nginx:  
     build: laravel-nginx
@@ -28,9 +28,12 @@ services:
       - storage
     links:
       - phpfpm:phpfpm
+    depends_on:
+      - database
+      - phpfpm      
     ports:
       - "80:80"
-    privileged: true
+    restart: always
 
   artisan:  
     build: laravel-artisan
