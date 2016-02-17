@@ -9,8 +9,13 @@ if [ ! "$(command -v realpath docker docker-compose | wc -l)" -eq "3" ]; then
 
 	Run it as root:
 
-		apt-get install sudo realpath python-pip
 		wget -qO- https://get.docker.com/ | sh
+		usermod -aG docker <user>
+
+		apt-get install -y sudo realpath 
+		usermod -aG sudo <user>
+
+		apt-get install -y python-pip
 		pip install docker-compose
 
 	EOF

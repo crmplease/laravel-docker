@@ -34,6 +34,10 @@ artisan:
   build: laravel-artisan
   volumes_from:
     - storage
+  depends_on:
+    - database
+    - phpfpm
+    - nginx    
   links:
     - database:database
 
@@ -41,6 +45,10 @@ composer:
   build: laravel-composer
   volumes_from:
     - storage
+  depends_on:
+    - database
+    - phpfpm
+    - nginx
 
 # gulp:  
 #   build: laravel-gulp
