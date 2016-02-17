@@ -12,7 +12,8 @@ sudo adduser <user> docker
 1. Create your laravel project
 2. Creare `docker` directory
 3. Pull this repository into `docker` directory
-4. Run `docker-compose`
+4. Make `storage` directory writeable for everyone
+5. Run `docker-compose`
 
 ## Usage
 ### Command-line usage
