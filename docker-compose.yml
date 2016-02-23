@@ -4,7 +4,7 @@ services:
     build: laravel-storage
     volumes:
       - ../:/data
-    restart: always
+    privileged: true
 
   database:  
     build: laravel-database
@@ -13,6 +13,7 @@ services:
     ports:
       - "3306:3306"
     restart: always
+    privileged: true
 
   phpfpm:  
     build: laravel-phpfpm
@@ -20,7 +21,10 @@ services:
       - storage
     links:
       - database:database
+    ports:
+      - "9000:9000"
     restart: always
+    privileged: true
 
   nginx:  
     build: laravel-nginx
@@ -34,6 +38,7 @@ services:
     ports:
       - "80:80"
     restart: always
+    privileged: true
 
   artisan:  
     build: laravel-artisan
@@ -45,6 +50,7 @@ services:
       - nginx    
     links:
       - database:database
+    privileged: true
 
   composer:  
     build: laravel-composer
@@ -54,6 +60,7 @@ services:
       - database
       - phpfpm
       - nginx
+    privileged: true
 
   # gulp:  
   #   build: laravel-gulp

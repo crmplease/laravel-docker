@@ -8,6 +8,11 @@ RUN apt-get update -y && \
     php5-mysql \
     php5-gd
 
+RUN usermod -u 1000 www-data && \
+    groupmod -g 1000 www-data
+
+USER 1000
+
 WORKDIR /data
 
 ENTRYPOINT ["php", "artisan"]
