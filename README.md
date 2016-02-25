@@ -9,6 +9,8 @@ apt-get install -y sudo
 usermod -aG sudo <user>
 
 wget -qO- https://get.docker.com/ | sh
+# or use curl:
+# curl -L http://get.docker.com/ | sh
 usermod -aG docker <user>
 
 apt-get install -y python-pip
