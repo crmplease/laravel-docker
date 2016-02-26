@@ -19,15 +19,10 @@ ADD config/my.cnf /etc/mysql/my.cnf
 ADD config/database-start.sh /opt/bin/database-start.sh 
 ADD config/database-setup.sql /opt/bin/database-setup.sql
 
-# run all subsequent commands as the mysql user
-RUN usermod -u 1000 mysql && \
-    groupmod -g 1000 mysql
-
 RUN chmod u=rwx /opt/bin/database-start.sh
 RUN chown mysql:mysql /opt/bin/database-start.sh /opt/bin/database-setup.sql
-
-WORKDIR /data
 
 USER mysql
 
 ENTRYPOINT ["/opt/bin/database-start.sh"]
+
